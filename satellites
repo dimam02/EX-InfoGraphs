@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+
+# Data for the number of satellites launched per year
+years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+satellites_launched = [40, 45, 48, 52, 56, 60, 63, 68, 70, 75, 80, 85]
+
+# Create the plot
+plt.plot(years, satellites_launched, marker='o')
+
+# Set the chart title and labels
+plt.title('Number of Satellites Launched per Year')
+plt.xlabel('Year')
+plt.ylabel('Number of Satellites')
+
+# Customize the x-axis tick labels to rotate for better visibility
+plt.xticks(rotation=45)
+
+# Display the plot
+plt.show()
