@@ -1,0 +1,25 @@
+import numpy as np
+from astropy import units as u
+from poliastro.bodies import Earth
+from poliastro.twobody import Orbit
+from poliastro.maneuver import Maneuver
+from poliastro.plotting import plot
+
+# Define the initial and final positions
+r_initial = np.array([6778, 0, 0]) * u.km
+r_final = np.array([20000, 20000, 0]) * u.km
+
+# Define the departure and arrival times
+t_initial = 0 * u.s
+t_final = 3600 * u.s
+
+# Compute the Lambert's problem solution
+ss0 = Orbit.from_vectors(Earth, r_initial, t_initial)
+ssf = Orbit.from_vectors(Earth, r_final, t_final)
+maneuver = Maneuver.lambert(ss0, ssf)
+
+# Apply the maneuver to get the final orbit
+ss_final = ss0.apply_maneuver(maneuver)
+
+# Plot the resulting trajectory
+plot(ss_final)

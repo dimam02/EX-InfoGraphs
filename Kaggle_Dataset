@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the dataset into a DataFrame
+df = pd.read_csv('exoplanet_data.csv')
+
+# Extract the relevant columns
+df = df[['koi_time0bk']]
+
+# Convert the time column to datetime
+df['koi_time0bk'] = pd.to_datetime(df['koi_time0bk'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
+
+# Filter data for the last five years
+current_year = pd.to_datetime('today').year
+df = df[df['koi_time0bk'].dt.year >= current_year - 5]
+
+# Group the data by year and calculate the total exoplanet count
+exoplanet_counts = df['koi_time0bk'].dt.year.value_counts().sort_index()
+
+# Create a bar chart
+plt.bar(exoplanet_counts.index, exoplanet_counts.values)
+plt.xlabel('Year')
+plt.ylabel('Number of Exoplanets Discovered')
+plt.title('Exoplanet Discoveries in the Last Five Years')
+plt.show()
